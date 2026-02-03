@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Native Basics | Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --bg-card: #1c2128;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --accent-subtle: rgba(88, 166, 255, 0.15);
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+      --border: #30363d;
+      --code-bg: #0d1117;
+      --gradient-start: #58a6ff;
+      --gradient-end: #a371f7;
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f8fa;
+      --bg-tertiary: #eaeef2;
+      --bg-card: #ffffff;
+      --text-primary: #1f2328;
+      --text-secondary: #57606a;
+      --text-muted: #8b949e;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --accent-subtle: rgba(9, 105, 218, 0.1);
+      --border: #d0d7de;
+      --code-bg: #f6f8fa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--accent);
+    }
+    p {
+      margin: 1rem 0;
+      color: var(--text-secondary);
+    }
+    strong {
+      color: var(--text-primary);
+    }
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+    li {
+      margin: 0.5rem 0;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+      color: var(--accent);
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    td {
+      color: var(--text-secondary);
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .tip-box {
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .tip-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .warning-box {
+      background: rgba(210, 153, 34, 0.15);
+      border: 1px solid var(--warning);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .warning-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-footer a:hover {
+      color: var(--accent-hover);
+    }
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 1rem; }
+      .page-header h1 { font-size: 2rem; }
+      main { padding: 8rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">📚 <span>Interview Prep</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="01-react-native-basics.html" class="active">React Native</a>
+        <a href="02-typescript-essentials.html">TypeScript</a>
+        <a href="03-your-project-explained.html">Your Project</a>
+        <a href="04-live-coding-tips.html">Live Coding</a>
+        <a href="05-common-interview-questions.html">Questions</a>
+        <a href="06-project-maintenance.html">Maintenance</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>📱 React Native & Expo Basics</h1>
+      <p>A beginner-friendly guide for junior developers</p>
+    </div>
+
+    <h2>What is React Native?</h2>
+    <p>React Native is a way to build <strong>mobile apps</strong> (iOS and Android) using <strong>JavaScript</strong> and <strong>React</strong>.</p>
+    <p>Think of it like this:</p>
+    <ul>
+      <li><strong>React</strong> = Build websites</li>
+      <li><strong>React Native</strong> = Build mobile apps (using similar code!)</li>
+    </ul>
+
+    <h3>Key Difference from Web React</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Web React</th><th>React Native</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Uses HTML tags (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;p&gt;</code>)</td><td>Uses special components (<code>&lt;View&gt;</code>, <code>&lt;Text&gt;</code>, <code>&lt;Image&gt;</code>)</td></tr>
+          <tr><td>Uses CSS files</td><td>Uses JavaScript objects for styles</td></tr>
+          <tr><td>Runs in browser</td><td>Runs on phone (iOS/Android)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What is Expo?</h2>
+    <p><strong>Expo</strong> is a tool that makes React Native easier. It handles the hard stuff for you.</p>
+
+    <h3>Two Ways to Use React Native:</h3>
+    <ol>
+      <li><strong>Expo (Managed Workflow)</strong> ← What you used!
+        <ul>
+          <li>Easier to start</li>
+          <li>No need to install Xcode or Android Studio</li>
+          <li>Run app with QR code on your phone</li>
+          <li>Some limitations (can't use all native features)</li>
+        </ul>
+      </li>
+      <li><strong>Bare Workflow</strong>
+        <ul>
+          <li>More control</li>
+          <li>Harder to set up</li>
+          <li>Can use any native feature</li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="tip-box">
+      <p><strong>For your interview:</strong> Know that Expo is great for quick development, but some apps need "bare workflow" for special features (like Bluetooth or background tasks).</p>
+    </div>
+
+    <h2>Core Components (The Building Blocks)</h2>
+    <p>In React Native, you don't use HTML. You use these components:</p>
+
+    <h4>1. <code>&lt;View&gt;</code> - Like a <code>&lt;div&gt;</code></h4>
+    <pre><code>import { View } from 'react-native';
+
+// A container box
+&lt;View style={{ padding: 10 }}&gt;
+  {/* stuff goes here */}
+&lt;/View&gt;</code></pre>
+
+    <h4>2. <code>&lt;Text&gt;</code> - For any text</h4>
+    <pre><code>import { Text } from 'react-native';
+
+// You MUST wrap text in &lt;Text&gt;
+&lt;Text&gt;Hello World&lt;/Text&gt;
+
+// ❌ WRONG - This will crash!
+&lt;View&gt;Hello World&lt;/View&gt;</code></pre>
+
+    <div class="warning-box">
+      <p><strong>Important:</strong> All text MUST be inside <code>&lt;Text&gt;</code>. This is different from web!</p>
+    </div>
+
+    <h4>3. <code>&lt;TextInput&gt;</code> - Like <code>&lt;input&gt;</code></h4>
+    <pre><code>import { TextInput } from 'react-native';
+
+&lt;TextInput
+  value={text}
+  onChangeText={setText}  // Note: onChangeText, not onChange
+  placeholder="Type here..."
+/&gt;</code></pre>
+
+    <h4>4. <code>&lt;ScrollView&gt;</code> - Scrollable container</h4>
+    <pre><code>import { ScrollView } from 'react-native';
+
+// Use when content might be longer than screen
+&lt;ScrollView&gt;
+  {/* lots of content */}
+&lt;/ScrollView&gt;</code></pre>
+
+    <h4>5. <code>&lt;FlatList&gt;</code> - For long lists (better performance)</h4>
+    <pre><code>import { FlatList } from 'react-native';
+
+&lt;FlatList
+  data={myArray}
+  keyExtractor={(item) =&gt; item.id}
+  renderItem={({ item }) =&gt; &lt;Text&gt;{item.name}&lt;/Text&gt;}
+/&gt;</code></pre>
+
+    <div class="tip-box">
+      <p><strong>When to use which?</strong><br>
+      • <code>ScrollView</code> = Short lists (under 20 items)<br>
+      • <code>FlatList</code> = Long lists (it only renders what's visible = faster!)</p>
+    </div>
+
+    <h4>6. <code>&lt;Pressable&gt;</code> - Touchable button</h4>
+    <pre><code>import { Pressable } from 'react-native';
+
+&lt;Pressable onPress={() =&gt; console.log('Pressed!')}&gt;
+  &lt;Text&gt;Click Me&lt;/Text&gt;
+&lt;/Pressable&gt;</code></pre>
+
+    <h4>7. <code>&lt;Image&gt;</code> - For images</h4>
+    <pre><code>import { Image } from 'react-native';
+
+// Local image
+&lt;Image source={require('./cat.png')} /&gt;
+
+// Remote image (needs width/height!)
+&lt;Image 
+  source={{ uri: 'https://example.com/cat.png' }}
+  style={{ width: 100, height: 100 }}
+/&gt;</code></pre>
+
+    <h2>Styling in React Native</h2>
+
+    <h3>No CSS Files!</h3>
+    <p>In React Native, styles are JavaScript objects:</p>
+    <pre><code>import { StyleSheet, View, Text } from 'react-native';
+
+function MyComponent() {
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Hello&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+// Define styles at bottom of file
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+});</code></pre>
+
+    <h3>Key Style Differences from CSS</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>CSS</th><th>React Native</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>background-color</code></td><td><code>backgroundColor</code> (camelCase)</td></tr>
+          <tr><td><code>font-size: 16px</code></td><td><code>fontSize: 16</code> (no 'px')</td></tr>
+          <tr><td><code>margin: 10px 20px</code></td><td><code>marginVertical: 10, marginHorizontal: 20</code></td></tr>
+          <tr><td><code>display: flex</code></td><td>Flexbox is default!</td></tr>
+          <tr><td><code>flex-direction: row</code></td><td>Default is <code>column</code> (not row!)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Flexbox is Default</h3>
+    <p>Everything in React Native uses Flexbox, but with different defaults:</p>
+    <pre><code>// In React Native, flex direction is COLUMN by default
+&lt;View&gt;
+  &lt;Text&gt;Item 1&lt;/Text&gt;  {/* Top */}
+  &lt;Text&gt;Item 2&lt;/Text&gt;  {/* Middle */}
+  &lt;Text&gt;Item 3&lt;/Text&gt;  {/* Bottom */}
+&lt;/View&gt;
+
+// To make items horizontal:
+&lt;View style={{ flexDirection: 'row' }}&gt;
+  &lt;Text&gt;Item 1&lt;/Text&gt;  {/* Left */}
+  &lt;Text&gt;Item 2&lt;/Text&gt;  {/* Middle */}
+  &lt;Text&gt;Item 3&lt;/Text&gt;  {/* Right */}
+&lt;/View&gt;</code></pre>
+
+    <h2>React Hooks You Need to Know</h2>
+
+    <h4>1. <code>useState</code> - Store and update data</h4>
+    <pre><code>import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);  // Start at 0
+  
+  return (
+    &lt;Pressable onPress={() =&gt; setCount(count + 1)}&gt;
+      &lt;Text&gt;Count: {count}&lt;/Text&gt;
+    &lt;/Pressable&gt;
+  );
+}</code></pre>
+    <p><strong>How it works:</strong></p>
+    <ul>
+      <li><code>count</code> = the current value</li>
+      <li><code>setCount</code> = function to change the value</li>
+      <li><code>useState(0)</code> = starting value is 0</li>
+    </ul>
+
+    <h4>2. <code>useEffect</code> - Do something when component loads or data changes</h4>
+    <pre><code>import { useEffect, useState } from 'react';
+
+function MyComponent() {
+  const [data, setData] = useState(null);
+  
+  // Runs ONCE when component first appears
+  useEffect(() =&gt; {
+    console.log('Component loaded!');
+    fetchData();
+  }, []);  // Empty array = run once
+  
+  // Runs every time 'count' changes
+  useEffect(() =&gt; {
+    console.log('Count changed to:', count);
+  }, [count]);  // Watch 'count'
+  
+  return &lt;Text&gt;Hello&lt;/Text&gt;;
+}</code></pre>
+
+    <h4>3. <code>useRef</code> - Store value that doesn't cause re-render</h4>
+    <pre><code>import { useRef } from 'react';
+
+function Timer() {
+  const timerRef = useRef(null);
+  
+  const startTimer = () =&gt; {
+    timerRef.current = setTimeout(() =&gt; {
+      console.log('Done!');
+    }, 3000);
+  };
+  
+  const stopTimer = () =&gt; {
+    clearTimeout(timerRef.current);
+  };
+  
+  return (
+    &lt;View&gt;
+      &lt;Pressable onPress={startTimer}&gt;&lt;Text&gt;Start&lt;/Text&gt;&lt;/Pressable&gt;
+      &lt;Pressable onPress={stopTimer}&gt;&lt;Text&gt;Stop&lt;/Text&gt;&lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+
+    <h2>Expo Router (File-Based Navigation)</h2>
+    <p>Your project uses <strong>Expo Router</strong> - it creates navigation based on file names!</p>
+
+    <h3>How It Works</h3>
+    <pre><code>app/
+  _layout.tsx      → Root layout (wraps everything)
+  (tabs)/
+    _layout.tsx    → Tab bar layout
+    index.tsx      → First tab (Home) - shows at "/"
+    explore.tsx    → Second tab - shows at "/explore"
+  modal.tsx        → Modal screen - shows at "/modal"</code></pre>
+
+    <h3>Navigation Between Screens</h3>
+    <pre><code>import { Link, router } from 'expo-router';
+
+// Method 1: Link component
+&lt;Link href="/explore"&gt;Go to Explore&lt;/Link&gt;
+
+// Method 2: Programmatic navigation
+&lt;Pressable onPress={() =&gt; router.push('/explore')}&gt;
+  &lt;Text&gt;Go to Explore&lt;/Text&gt;
+&lt;/Pressable&gt;</code></pre>
+
+    <h2>Platform-Specific Code</h2>
+    <p>Sometimes iOS and Android need different code:</p>
+    <pre><code>import { Platform } from 'react-native';
+
+// Check platform
+if (Platform.OS === 'ios') {
+  console.log('Running on iPhone');
+} else if (Platform.OS === 'android') {
+  console.log('Running on Android');
+}
+
+// Platform-specific styles
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: Platform.OS === 'ios' ? 50 : 30,
+    ...Platform.select({
+      ios: { shadowColor: 'black' },
+      android: { elevation: 5 },
+    }),
+  },
+});</code></pre>
+
+    <h2>Running Your App</h2>
+    <pre><code># Start the development server
+npx expo start
+
+# Then press:
+# 'i' - Open iOS simulator
+# 'a' - Open Android emulator
+# 'w' - Open in web browser
+# Scan QR code - Open on your phone (needs Expo Go app)</code></pre>
+
+    <h2>Common Issues</h2>
+    <ol>
+      <li><strong>"Text strings must be rendered within a &lt;Text&gt; component"</strong> - You have text outside of <code>&lt;Text&gt;</code> tags</li>
+      <li><strong>"VirtualizedLists should never be nested"</strong> - Don't put <code>FlatList</code> inside <code>ScrollView</code></li>
+      <li><strong>Styles not working</strong> - Check for typos (camelCase!) and make sure you're using numbers, not strings with 'px'</li>
+    </ol>
+
+    <div class="nav-footer">
+      <a href="index.html">← Back to Home</a>
+      <a href="02-typescript-essentials.html">Next: TypeScript Essentials →</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+  </script>
+</body>
+</html>
+

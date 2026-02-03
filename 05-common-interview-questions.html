@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Common Interview Questions | Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --bg-card: #1c2128;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --accent-subtle: rgba(88, 166, 255, 0.15);
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+      --border: #30363d;
+      --code-bg: #0d1117;
+      --gradient-start: #58a6ff;
+      --gradient-end: #a371f7;
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f8fa;
+      --bg-tertiary: #eaeef2;
+      --bg-card: #ffffff;
+      --text-primary: #1f2328;
+      --text-secondary: #57606a;
+      --text-muted: #8b949e;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --accent-subtle: rgba(9, 105, 218, 0.1);
+      --border: #d0d7de;
+      --code-bg: #f6f8fa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--accent);
+    }
+    p {
+      margin: 1rem 0;
+      color: var(--text-secondary);
+    }
+    strong {
+      color: var(--text-primary);
+    }
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+    li {
+      margin: 0.5rem 0;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+      color: var(--accent);
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+    .qa-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .qa-card h3 {
+      margin-top: 0;
+      color: var(--text-primary);
+    }
+    .qa-card .answer {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      border-left: 3px solid var(--accent);
+    }
+    .tip-box {
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .tip-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-footer a:hover {
+      color: var(--accent-hover);
+    }
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 1rem; }
+      .page-header h1 { font-size: 2rem; }
+      main { padding: 8rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">📚 <span>Interview Prep</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="01-react-native-basics.html">React Native</a>
+        <a href="02-typescript-essentials.html">TypeScript</a>
+        <a href="03-your-project-explained.html">Your Project</a>
+        <a href="04-live-coding-tips.html">Live Coding</a>
+        <a href="05-common-interview-questions.html" class="active">Questions</a>
+        <a href="06-project-maintenance.html">Maintenance</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>❓ Common Interview Questions</h1>
+      <p>Questions they might ask and how to answer them</p>
+    </div>
+
+    <h2>About Your Project</h2>
+
+    <div class="qa-card">
+      <h3>"Walk me through your task manager app"</h3>
+      <div class="answer">
+        "I built 'Do Meows', a task manager using React Native and Expo. The main features are: Add tasks with a text input, mark tasks as complete (with visual strikethrough), delete tasks, and cat GIF animations for feedback. I used useState for state management, TypeScript for type safety, and created a theme system that supports light and dark mode. The feedback system uses useRef for the timeout to avoid memory leaks, and I used expo-image for better GIF performance."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"Why did you use useState instead of Redux?"</h3>
+      <div class="answer">
+        "The requirements specified local component state only. For a simple app like this, useState is perfect - it's simpler, has less boilerplate, and the state doesn't need to be shared across many components. If this app grew to have multiple screens that needed to share task data, I'd consider Context API first, then Redux or Zustand for more complex state."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"How would you add data persistence?"</h3>
+      <div class="answer">
+        "I'd use AsyncStorage from @react-native-async-storage/async-storage. When tasks change, I'd save to storage with useEffect. On app load, I'd read from storage. For a production app, I might use a database like SQLite or sync with a backend API."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"What would you improve about your code?"</h3>
+      <div class="answer">
+        "A few things: 1) Use FlatList instead of ScrollView + map() for better performance with many tasks, 2) Add animations with react-native-reanimated for smoother task additions/deletions, 3) Add data persistence with AsyncStorage, 4) Add an edit feature for tasks, 5) Add unit tests for the task functions, 6) Extract the task item into its own component for better code organization."
+      </div>
+    </div>
+
+    <h2>React Native Questions</h2>
+
+    <div class="qa-card">
+      <h3>"What's the difference between React and React Native?"</h3>
+      <div class="answer">
+        "React is for building web apps, React Native is for mobile apps. Key differences: React uses HTML elements (div, span, p) while React Native uses native components (View, Text, Image). React uses CSS for styling while React Native uses JavaScript objects with StyleSheet. React runs in a browser while React Native compiles to native iOS/Android code. The component logic and hooks (useState, useEffect) work the same way."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"What's the difference between ScrollView and FlatList?"</h3>
+      <div class="answer">
+        "ScrollView renders ALL items at once. Good for short lists. FlatList only renders items that are visible on screen. Much better for long lists because: Uses less memory, faster initial render, smoother scrolling. Rule of thumb: Under 20 items → ScrollView is fine. Over 20 items → Use FlatList."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"What is Expo? Why use it?"</h3>
+      <div class="answer">
+        "Expo is a framework built on top of React Native that makes development easier. Benefits: Quick setup (no Xcode/Android Studio needed to start), easy testing with Expo Go app, built-in libraries (camera, location, etc.), over-the-air updates, easier build process. Limitations: Can't use all native modules, larger app size, less control over native code. For most apps, Expo is great. For apps needing deep native integration (Bluetooth, background processing), you might need bare workflow or eject."
+      </div>
+    </div>
+
+    <h2>TypeScript Questions</h2>
+
+    <div class="qa-card">
+      <h3>"Why use TypeScript?"</h3>
+      <div class="answer">
+        "TypeScript catches errors before runtime. Example: If I type 'complted' instead of 'completed', TypeScript shows an error immediately. In JavaScript, this bug might only appear when a user triggers that code. Other benefits: Better autocomplete in IDE, self-documenting code, easier refactoring, catches null/undefined errors."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"What's the difference between interface and type?"</h3>
+      <div class="answer">
+        "Both define object shapes, but: Interface can be extended (interface B extends A), can be merged (declare same interface twice), better for objects and classes. Type can define unions (type Status = 'a' | 'b'), can define primitives (type ID = string), more flexible. My rule: Use interface for objects, type for everything else."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"What are generics?"</h3>
+      <div class="answer">
+        "Generics let you write reusable code that works with any type. Without generics, you need separate functions for each type. With generics, one function works for all: function first&lt;T&gt;(arr: T[]): T { return arr[0]; }. Common use: useState&lt;Task[]&gt;([]) tells TypeScript the state is an array of Task objects."
+      </div>
+    </div>
+
+    <h2>JavaScript Questions</h2>
+
+    <div class="qa-card">
+      <h3>"What's the difference between let, const, and var?"</h3>
+      <div class="answer">
+        "var - Old way, function-scoped, can be redeclared (avoid it). let - Block-scoped, can be reassigned. const - Block-scoped, cannot be reassigned. But objects/arrays can be modified: const arr = [1, 2]; arr.push(3); is OK because the array itself isn't reassigned. Rule: Use const by default, let when you need to reassign."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"Explain async/await"</h3>
+      <div class="answer">
+        "async/await is a cleaner way to handle promises. The await keyword pauses execution until the promise resolves. Must be inside an async function. It's easier to read than .then() chains and makes error handling with try/catch more intuitive."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"What is the spread operator?"</h3>
+      <div class="answer">
+        "The spread operator (...) expands arrays or objects. Arrays: const arr2 = [...arr1, 3, 4]. Objects: const updated = { ...user, age: 25 }. Common in React for immutable updates: setTasks([...tasks, newTask]) to add, and setTasks(tasks.map(t => t.id === id ? { ...t, completed: true } : t)) to update."
+      </div>
+    </div>
+
+    <h2>React Hooks Questions</h2>
+
+    <div class="qa-card">
+      <h3>"Explain useState"</h3>
+      <div class="answer">
+        "useState stores data that can change and triggers re-render. const [count, setCount] = useState(0); - count is the current value, setCount is the function to update it, useState(0) is the initial value. Important: State updates are asynchronous! For updates based on previous value, use: setCount(prev => prev + 1)."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"Explain useEffect"</h3>
+      <div class="answer">
+        "useEffect runs side effects (data fetching, subscriptions, etc.). With empty dependency array [], it runs once on mount. With dependencies [count], it runs when those values change. The cleanup function (return statement) runs before next effect or unmount - important for clearing timers and subscriptions."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"Explain useRef"</h3>
+      <div class="answer">
+        "useRef stores a value that persists between renders but doesn't cause re-render when changed. Common uses: Store timeout/interval IDs, access DOM elements, store previous values. In my project, I used it for the feedback timeout so I could clear it if the user does another action quickly."
+      </div>
+    </div>
+
+    <h2>Problem-Solving Questions</h2>
+
+    <div class="qa-card">
+      <h3>"How would you implement a search filter?"</h3>
+      <pre><code>function SearchableList() {
+  const [items] = useState(['Apple', 'Banana', 'Orange', 'Grape']);
+  const [search, setSearch] = useState('');
+  
+  const filteredItems = items.filter(item =&gt;
+    item.toLowerCase().includes(search.toLowerCase())
+  );
+  
+  return (
+    &lt;View&gt;
+      &lt;TextInput
+        value={search}
+        onChangeText={setSearch}
+        placeholder="Search..."
+      /&gt;
+      {filteredItems.map(item =&gt; (
+        &lt;Text key={item}&gt;{item}&lt;/Text&gt;
+      ))}
+    &lt;/View&gt;
+  );
+}</code></pre>
+    </div>
+
+    <div class="qa-card">
+      <h3>"How would you debounce a search input?"</h3>
+      <pre><code>function DebouncedSearch() {
+  const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  
+  useEffect(() =&gt; {
+    const timer = setTimeout(() =&gt; {
+      setDebouncedSearch(search);
+    }, 300);  // Wait 300ms after user stops typing
+    
+    return () =&gt; clearTimeout(timer);  // Clear if user types again
+  }, [search]);
+  
+  useEffect(() =&gt; {
+    if (debouncedSearch) {
+      // Make API call here
+      console.log('Searching for:', debouncedSearch);
+    }
+  }, [debouncedSearch]);
+  
+  return (
+    &lt;TextInput
+      value={search}
+      onChangeText={setSearch}
+      placeholder="Search..."
+    /&gt;
+  );
+}</code></pre>
+    </div>
+
+    <h2>Behavioral Questions</h2>
+
+    <div class="qa-card">
+      <h3>"Tell me about yourself"</h3>
+      <div class="answer">
+        "I'm Mohamed, a developer passionate about building mobile apps. I recently completed a React Native task manager app for your assessment, which was my first Expo project. I enjoyed learning the framework and implementing features like theme support and animated feedback. I'm excited about this role because I want to grow my mobile development skills and work with a team using modern tools like Cursor IDE and AI-assisted workflows."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"Why do you want to work here?"</h3>
+      <div class="answer">
+        "Three reasons: 1) The tech stack - React Native, TypeScript, NestJS - these are technologies I want to master, and working with them daily would accelerate my learning. 2) The AI-assisted workflow - I'm already using Cursor IDE and find it incredibly productive. A team that embraces these tools is forward-thinking. 3) Remote work with a global team - I value the flexibility and the opportunity to collaborate with diverse perspectives."
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <h3>"What's your biggest weakness?"</h3>
+      <div class="answer">
+        "I sometimes spend too much time trying to find the perfect solution instead of shipping a working version first. I'm working on this by setting time limits for research and reminding myself that 'done is better than perfect' - I can always iterate and improve later."
+      </div>
+    </div>
+
+    <h2>Questions to Ask Them</h2>
+    <div class="tip-box">
+      <p><strong>Technical:</strong><br>
+      • "What does the development workflow look like day-to-day?"<br>
+      • "How do you handle code reviews?"<br>
+      • "What's your testing strategy for mobile apps?"<br>
+      • "How often do you release to the app stores?"</p>
+    </div>
+    <div class="tip-box">
+      <p><strong>Team:</strong><br>
+      • "How big is the engineering team?"<br>
+      • "How do you onboard new developers?"<br>
+      • "What's the balance between new features and maintenance?"</p>
+    </div>
+    <div class="tip-box">
+      <p><strong>Growth:</strong><br>
+      • "What learning opportunities are available?"<br>
+      • "How do you support junior developers?"<br>
+      • "What does success look like in this role after 6 months?"</p>
+    </div>
+
+    <div class="nav-footer">
+      <a href="04-live-coding-tips.html">← Live Coding Tips</a>
+      <a href="06-project-maintenance.html">Next: Project Maintenance →</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Coding Tips | Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --bg-card: #1c2128;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --accent-subtle: rgba(88, 166, 255, 0.15);
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+      --border: #30363d;
+      --code-bg: #0d1117;
+      --gradient-start: #58a6ff;
+      --gradient-end: #a371f7;
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f8fa;
+      --bg-tertiary: #eaeef2;
+      --bg-card: #ffffff;
+      --text-primary: #1f2328;
+      --text-secondary: #57606a;
+      --text-muted: #8b949e;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --accent-subtle: rgba(9, 105, 218, 0.1);
+      --border: #d0d7de;
+      --code-bg: #f6f8fa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--accent);
+    }
+    p {
+      margin: 1rem 0;
+      color: var(--text-secondary);
+    }
+    strong {
+      color: var(--text-primary);
+    }
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+    li {
+      margin: 0.5rem 0;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+      color: var(--accent);
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    td {
+      color: var(--text-secondary);
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .tip-box {
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .tip-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .success-box {
+      background: rgba(63, 185, 80, 0.15);
+      border: 1px solid var(--success);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .success-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .error-box {
+      background: rgba(248, 81, 73, 0.15);
+      border: 1px solid var(--danger);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .error-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .golden-rule {
+      background: linear-gradient(135deg, rgba(210, 153, 34, 0.2) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--warning);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .golden-rule h4 {
+      color: var(--warning);
+      margin-top: 0;
+    }
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .checklist-group {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .checklist-group h4 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .checklist-group ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .checklist-group li {
+      padding-left: 1.5rem;
+      position: relative;
+      margin: 0.5rem 0;
+    }
+    .checklist-group li::before {
+      content: '☐';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-footer a:hover {
+      color: var(--accent-hover);
+    }
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 1rem; }
+      .page-header h1 { font-size: 2rem; }
+      main { padding: 8rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">📚 <span>Interview Prep</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="01-react-native-basics.html">React Native</a>
+        <a href="02-typescript-essentials.html">TypeScript</a>
+        <a href="03-your-project-explained.html">Your Project</a>
+        <a href="04-live-coding-tips.html" class="active">Live Coding</a>
+        <a href="05-common-interview-questions.html">Questions</a>
+        <a href="06-project-maintenance.html">Maintenance</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>💡 Live Coding Interview Tips</h1>
+      <p>How to succeed in your 60-minute technical interview</p>
+    </div>
+
+    <h2>The Interview Format</h2>
+    <p><strong>Duration:</strong> 60 minutes</p>
+    <p><strong>What they're testing:</strong></p>
+    <ul>
+      <li>Problem-solving approach</li>
+      <li>Coding style</li>
+      <li>Communication skills</li>
+      <li>How you handle pressure</li>
+    </ul>
+
+    <div class="success-box">
+      <p><strong>They're NOT expecting:</strong> Perfect code on first try, memorized solutions, or expert-level knowledge.</p>
+    </div>
+
+    <h2>The Golden Rules</h2>
+
+    <div class="golden-rule">
+      <h4>1. THINK OUT LOUD</h4>
+      <p>This is the most important thing!</p>
+      <pre><code>❌ Bad: *silence for 5 minutes* "Done!"
+
+✅ Good: "Okay, so I need to... let me think about the data structure first. 
+         I think an array would work here because... Actually, wait, 
+         a Set might be better for lookups. Let me try that..."</code></pre>
+      <p><strong>Why?</strong> They want to see HOW you think, not just the final answer.</p>
+    </div>
+
+    <div class="golden-rule">
+      <h4>2. ASK CLARIFYING QUESTIONS</h4>
+      <p>Before you code, ask questions!</p>
+      <pre><code>Good questions to ask:
+- "What should happen if the input is empty?"
+- "Should this work for very large lists?"
+- "Can there be duplicate items?"
+- "Should I handle errors, or assume valid input?"
+- "Is there a specific time/space complexity you're looking for?"</code></pre>
+    </div>
+
+    <div class="golden-rule">
+      <h4>3. START WITH A PLAN</h4>
+      <p>Don't jump into coding immediately.</p>
+      <ol>
+        <li>Understand the problem (ask questions)</li>
+        <li>Think of examples (edge cases)</li>
+        <li>Explain your approach</li>
+        <li>Write pseudocode or outline</li>
+        <li>Code it</li>
+        <li>Test with examples</li>
+        <li>Discuss improvements</li>
+      </ol>
+    </div>
+
+    <div class="golden-rule">
+      <h4>4. IT'S OKAY TO NOT KNOW</h4>
+      <pre><code>❌ Bad: Pretending you know something you don't
+
+✅ Good: "I'm not sure about that specific API, but I would approach it by..."
+         "I haven't used that before, but based on what I know about similar tools..."
+         "Can I look that up, or would you prefer I describe my approach?"</code></pre>
+    </div>
+
+    <h2>Time Management (60 minutes)</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Time</th><th>Activity</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0-5 min</td><td>Introductions, problem explanation</td></tr>
+          <tr><td>5-10 min</td><td>Ask questions, understand requirements</td></tr>
+          <tr><td>10-15 min</td><td>Plan your approach, discuss with interviewer</td></tr>
+          <tr><td>15-45 min</td><td>Code the solution</td></tr>
+          <tr><td>45-55 min</td><td>Test, debug, optimize</td></tr>
+          <tr><td>55-60 min</td><td>Discuss improvements, ask questions</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <p><strong>If You're Running Out of Time:</strong><br>
+      "I'm running low on time, so let me explain what I would do next: 1) I'd add error handling here, 2) I'd optimize this loop, 3) I'd add tests for edge cases. Should I implement any of these, or would you like to discuss them?"</p>
+    </div>
+
+    <h2>Problem-Solving Framework</h2>
+
+    <h3>Step 1: Understand</h3>
+    <pre><code>Interviewer: "Build a function that finds duplicates in an array"
+
+You: "Let me make sure I understand:
+- Input: an array of... numbers? strings? any type?
+- Output: the duplicate values? or true/false if duplicates exist?
+- Should I return all duplicates or just the first one?
+- What about empty arrays?"</code></pre>
+
+    <h3>Step 2: Examples</h3>
+    <pre><code>"Let me think of some examples:
+- [1, 2, 3, 2] → should return [2] or 2?
+- [1, 1, 1] → should return [1] or [1, 1]?
+- [] → empty array, return []?
+- [1, 2, 3] → no duplicates, return []?"</code></pre>
+
+    <h3>Step 3: Approach</h3>
+    <pre><code>"I can think of a few approaches:
+
+1. Brute force: nested loops, O(n²) time
+2. Sort first: O(n log n) time, O(1) space
+3. Use a Set: O(n) time, O(n) space
+
+I'll go with the Set approach since it's most efficient for time.
+Does that sound good?"</code></pre>
+
+    <h3>Step 4: Code</h3>
+    <pre><code>function findDuplicates(arr: number[]): number[] {
+  const seen = new Set&lt;number&gt;();
+  const duplicates = new Set&lt;number&gt;();
+  
+  for (const num of arr) {
+    if (seen.has(num)) {
+      duplicates.add(num);
+    } else {
+      seen.add(num);
+    }
+  }
+  
+  return Array.from(duplicates);
+}</code></pre>
+
+    <h3>Step 5: Test</h3>
+    <pre><code>"Let me trace through with [1, 2, 3, 2]:
+- num=1: seen={}, not in seen, add to seen → seen={1}
+- num=2: seen={1}, not in seen, add to seen → seen={1,2}
+- num=3: seen={1,2}, not in seen, add to seen → seen={1,2,3}
+- num=2: seen={1,2,3}, IS in seen, add to duplicates → duplicates={2}
+- Return [2] ✓"</code></pre>
+
+    <h3>Step 6: Discuss</h3>
+    <pre><code>"This solution is O(n) time and O(n) space.
+If memory was a concern, I could sort first and compare adjacent elements.
+I could also add input validation for null/undefined arrays."</code></pre>
+
+    <h2>Common Patterns to Know</h2>
+
+    <h3>Array Operations</h3>
+    <pre><code>// Filter
+const completed = tasks.filter(t =&gt; t.completed);
+
+// Map (transform)
+const names = users.map(u =&gt; u.name);
+
+// Find
+const task = tasks.find(t =&gt; t.id === targetId);
+
+// Some/Every
+const hasCompleted = tasks.some(t =&gt; t.completed);
+const allCompleted = tasks.every(t =&gt; t.completed);
+
+// Reduce
+const total = numbers.reduce((sum, n) =&gt; sum + n, 0);</code></pre>
+
+    <h3>Set and Map</h3>
+    <pre><code>// Set - unique values
+const unique = new Set([1, 2, 2, 3]); // {1, 2, 3}
+unique.has(2);  // true
+unique.add(4);  // {1, 2, 3, 4}
+
+// Map - key-value pairs
+const map = new Map();
+map.set('key', 'value');
+map.get('key');  // 'value'
+map.has('key');  // true</code></pre>
+
+    <h2>When You Get Stuck</h2>
+
+    <div class="tip-box">
+      <p><strong>Strategy 1: Break It Down</strong><br>
+      "Let me break this into smaller parts: 1) First, I need to parse the input, 2) Then, process each item, 3) Finally, format the output. Let me start with step 1..."</p>
+    </div>
+
+    <div class="tip-box">
+      <p><strong>Strategy 2: Start Simple</strong><br>
+      "Let me start with a simple solution that works, then optimize if we have time."</p>
+    </div>
+
+    <div class="tip-box">
+      <p><strong>Strategy 3: Ask for Hints</strong><br>
+      "I'm thinking about using [approach], but I'm not sure if that's the right direction. Could you give me a hint?"</p>
+    </div>
+
+    <div class="tip-box">
+      <p><strong>Strategy 4: Use Examples</strong><br>
+      "Let me trace through a simple example to understand the pattern..."</p>
+    </div>
+
+    <h2>What NOT to Do</h2>
+    <div class="error-box">
+      <p>❌ <strong>Don't Stay Silent</strong> - Even if thinking, say "Let me think about this for a moment..."</p>
+    </div>
+    <div class="error-box">
+      <p>❌ <strong>Don't Give Up</strong> - If stuck, explain what you've tried and ask for guidance</p>
+    </div>
+    <div class="error-box">
+      <p>❌ <strong>Don't Memorize Solutions</strong> - They can tell. Focus on understanding patterns instead.</p>
+    </div>
+    <div class="error-box">
+      <p>❌ <strong>Don't Argue</strong> - If they suggest a different approach, be open to it</p>
+    </div>
+    <div class="error-box">
+      <p>❌ <strong>Don't Rush</strong> - Take time to understand before coding</p>
+    </div>
+    <div class="error-box">
+      <p>❌ <strong>Don't Forget Edge Cases</strong> - Empty input, null, single item, duplicates, etc.</p>
+    </div>
+
+    <h2>Checklists</h2>
+    <div class="checklist-grid">
+      <div class="checklist-group">
+        <h4>Day Before</h4>
+        <ul>
+          <li>Review your project code</li>
+          <li>Practice explaining your approach out loud</li>
+          <li>Get good sleep</li>
+          <li>Test your computer/internet/camera/mic</li>
+          <li>Have water nearby</li>
+          <li>Find a quiet place</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <h4>During Interview</h4>
+        <ul>
+          <li>Take a breath before answering</li>
+          <li>Ask clarifying questions</li>
+          <li>Think out loud</li>
+          <li>Start with a plan</li>
+          <li>Test your solution</li>
+          <li>Discuss trade-offs</li>
+          <li>Ask questions at the end</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Sample Practice Problems</h2>
+    <p>Try these before your interview:</p>
+    <ol>
+      <li><strong>Easy:</strong> Reverse a string</li>
+      <li><strong>Easy:</strong> Find the maximum number in an array</li>
+      <li><strong>Medium:</strong> Remove duplicates from an array</li>
+      <li><strong>Medium:</strong> Implement a simple todo list (add, remove, toggle)</li>
+      <li><strong>Medium:</strong> Debounce a function</li>
+      <li><strong>React:</strong> Build a counter with increment/decrement</li>
+      <li><strong>React:</strong> Build a search filter for a list</li>
+    </ol>
+
+    <div class="nav-footer">
+      <a href="03-your-project-explained.html">← Your Project Explained</a>
+      <a href="05-common-interview-questions.html">Next: Common Questions →</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+  </script>
+</body>
+</html>
+

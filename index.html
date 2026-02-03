@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Prep Docs | Chapter One</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --bg-card: #1c2128;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --accent-subtle: rgba(88, 166, 255, 0.15);
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+      --border: #30363d;
+      --code-bg: #0d1117;
+      --gradient-start: #58a6ff;
+      --gradient-end: #a371f7;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f8fa;
+      --bg-tertiary: #eaeef2;
+      --bg-card: #ffffff;
+      --text-primary: #1f2328;
+      --text-secondary: #57606a;
+      --text-muted: #8b949e;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --accent-subtle: rgba(9, 105, 218, 0.1);
+      --border: #d0d7de;
+      --code-bg: #f6f8fa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+
+    /* Main Content */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 0 4rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      padding: 0.375rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card.priority {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, var(--accent-subtle) 0%, var(--bg-card) 100%);
+    }
+
+    .card.priority::before {
+      opacity: 1;
+    }
+
+    /* Section */
+    section {
+      margin: 3rem 0;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .info-box h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .info-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .info-box li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .info-box li::before {
+      content: '→';
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Pitch Box */
+    .pitch-box {
+      background: linear-gradient(135deg, var(--accent-subtle) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .pitch-box h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pitch-box blockquote {
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .checklist-group h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .checklist-group ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .checklist-group li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+
+    .checklist-group li::before {
+      content: '☐';
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    /* Table */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    td {
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--bg-secondary);
+    }
+
+    /* Code Block */
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    .code-block code {
+      color: var(--accent);
+    }
+
+    .code-block .comment {
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .good-luck {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 8rem 1rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">📚 <span>Interview Prep</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="01-react-native-basics.html">React Native</a>
+        <a href="02-typescript-essentials.html">TypeScript</a>
+        <a href="03-your-project-explained.html">Your Project</a>
+        <a href="04-live-coding-tips.html">Live Coding</a>
+        <a href="05-common-interview-questions.html">Questions</a>
+        <a href="06-project-maintenance.html">Maintenance</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <span class="hero-badge">Chapter One Interview</span>
+      <h1>Interview Preparation Docs 📚</h1>
+      <p>Your complete guide to ace the Chapter One live coding interview!</p>
+    </div>
+
+    <section>
+      <h2>⭐ Priority Reading (Limited Time)</h2>
+      <div class="cards-grid">
+        <a href="03-your-project-explained.html" class="card priority">
+          <div class="card-icon">🎯</div>
+          <h3>Your Project Explained</h3>
+          <p>Know YOUR code inside out - be ready to explain every line</p>
+          <div class="card-meta">⏱️ 15 min read • Most Important</div>
+        </a>
+        <a href="04-live-coding-tips.html" class="card priority">
+          <div class="card-icon">💡</div>
+          <h3>Live Coding Tips</h3>
+          <p>How to succeed in the interview - strategies and frameworks</p>
+          <div class="card-meta">⏱️ 15 min read • Essential</div>
+        </a>
+        <a href="05-common-interview-questions.html" class="card priority">
+          <div class="card-icon">❓</div>
+          <h3>Common Questions</h3>
+          <p>Questions they might ask and how to answer them</p>
+          <div class="card-meta">⏱️ 20 min read • Practice These</div>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>📖 Full Documentation</h2>
+      <div class="cards-grid">
+        <a href="01-react-native-basics.html" class="card">
+          <div class="card-icon">📱</div>
+          <h3>React Native Basics</h3>
+          <p>Components, styling, hooks, and Expo Router fundamentals</p>
+          <div class="card-meta">⏱️ 20 min read</div>
+        </a>
+        <a href="02-typescript-essentials.html" class="card">
+          <div class="card-icon">🔷</div>
+          <h3>TypeScript Essentials</h3>
+          <p>Types, interfaces, generics, and common patterns</p>
+          <div class="card-meta">⏱️ 15 min read</div>
+        </a>
+        <a href="06-project-maintenance.html" class="card">
+          <div class="card-icon">🔧</div>
+          <h3>Project Maintenance</h3>
+          <p>How to run, update, and improve your app</p>
+          <div class="card-meta">⏱️ 10 min read</div>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>🎤 The Interview</h2>
+      <div class="info-box">
+        <h3>What to Expect</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;"><strong>Format:</strong> 60-minute live coding session</p>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;"><strong>Testing:</strong> Problem-solving approach, coding style, communication</p>
+        <ul>
+          <li><strong>Think out loud</strong> - They want to see HOW you think</li>
+          <li><strong>Ask questions</strong> - Clarify requirements before coding</li>
+          <li><strong>Start simple</strong> - Get something working, then improve</li>
+          <li><strong>Test your code</strong> - Walk through examples</li>
+          <li><strong>Be honest</strong> - If you don't know something, say so</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>🎯 Your 30-Second Pitch</h2>
+      <div class="pitch-box">
+        <h3>Memorize This</h3>
+        <blockquote>
+          "I built 'Do Meows', a task manager using React Native and Expo. It has add, complete, and delete features with cat GIF animations for feedback. I used TypeScript for type safety, created a theme system supporting light/dark mode, and used useRef for the feedback timer to avoid memory leaks. If I had more time, I'd add data persistence and use FlatList for better performance."
+        </blockquote>
+      </div>
+    </section>
+
+    <section>
+      <h2>✅ Checklists</h2>
+      <div class="checklist">
+        <div class="checklist-group">
+          <h4>Day Before</h4>
+          <ul>
+            <li>Re-read your project code</li>
+            <li>Practice explaining out loud</li>
+            <li>Review live coding tips</li>
+            <li>Test computer/camera/mic</li>
+            <li>Get good sleep!</li>
+          </ul>
+        </div>
+        <div class="checklist-group">
+          <h4>Interview Day</h4>
+          <ul>
+            <li>Have water nearby</li>
+            <li>Find a quiet place</li>
+            <li>Take a breath before answering</li>
+            <li>Think out loud while coding</li>
+            <li>Ask clarifying questions</li>
+            <li>Test your solution with examples</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>🛠️ Your Tech Stack</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Technology</th>
+              <th>What It Does</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>React Native</strong></td>
+              <td>Build mobile apps with JavaScript</td>
+            </tr>
+            <tr>
+              <td><strong>Expo</strong></td>
+              <td>Tools to make React Native easier</td>
+            </tr>
+            <tr>
+              <td><strong>TypeScript</strong></td>
+              <td>JavaScript with types (catches bugs early)</td>
+            </tr>
+            <tr>
+              <td><strong>Expo Router</strong></td>
+              <td>File-based navigation</td>
+            </tr>
+            <tr>
+              <td><strong>expo-image</strong></td>
+              <td>Better image/GIF handling</td>
+            </tr>
+            <tr>
+              <td><strong>nanoid</strong></td>
+              <td>Generate unique IDs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>📝 Emergency Cheat Sheet</h2>
+      <h3 style="font-size: 1rem; color: var(--text-secondary); margin: 1rem 0;">State Updates</h3>
+      <div class="code-block">
+<pre><span class="comment">// Add to array</span>
+setItems(prev => [...prev, newItem]);
+
+<span class="comment">// Remove from array</span>
+setItems(prev => prev.filter(item => item.id !== targetId));
+
+<span class="comment">// Update item in array</span>
+setItems(prev => prev.map(item => 
+  item.id === targetId ? { ...item, done: <code>true</code> } : item
+));</pre>
+      </div>
+
+      <h3 style="font-size: 1rem; color: var(--text-secondary); margin: 1rem 0;">Common Hooks</h3>
+      <div class="code-block">
+<pre><span class="comment">// State</span>
+<code>const</code> [value, setValue] = useState(initialValue);
+
+<span class="comment">// Effect (run on mount)</span>
+useEffect(() => { <span class="comment">/* code */</span> }, []);
+
+<span class="comment">// Effect (run when dependency changes)</span>
+useEffect(() => { <span class="comment">/* code */</span> }, [dependency]);
+
+<span class="comment">// Ref (no re-render)</span>
+<code>const</code> ref = useRef(<code>null</code>);</pre>
+      </div>
+    </section>
+
+    <footer>
+      <p class="good-luck">Good Luck! 🚀</p>
+      <p>You've got this! They already liked your assessment - you're qualified!</p>
+      <p style="margin-top: 1rem;">Created for Mohamed's Chapter One interview preparation</p>
+    </footer>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Project Explained | Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --bg-card: #1c2128;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --accent-subtle: rgba(88, 166, 255, 0.15);
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+      --border: #30363d;
+      --code-bg: #0d1117;
+      --gradient-start: #58a6ff;
+      --gradient-end: #a371f7;
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f8fa;
+      --bg-tertiary: #eaeef2;
+      --bg-card: #ffffff;
+      --text-primary: #1f2328;
+      --text-secondary: #57606a;
+      --text-muted: #8b949e;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --accent-subtle: rgba(9, 105, 218, 0.1);
+      --border: #d0d7de;
+      --code-bg: #f6f8fa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--accent);
+    }
+    p {
+      margin: 1rem 0;
+      color: var(--text-secondary);
+    }
+    strong {
+      color: var(--text-primary);
+    }
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+    li {
+      margin: 0.5rem 0;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+      color: var(--accent);
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+    .tip-box {
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .tip-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .success-box {
+      background: rgba(63, 185, 80, 0.15);
+      border: 1px solid var(--success);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .success-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      padding-left: 1.75rem;
+      position: relative;
+    }
+    .checklist li::before {
+      content: '✅';
+      position: absolute;
+      left: 0;
+    }
+    .pitch-box {
+      background: linear-gradient(135deg, var(--accent-subtle) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .pitch-box h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 0 0 1rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .pitch-box blockquote {
+      font-size: 1rem;
+      color: var(--text-primary);
+      font-style: italic;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-footer a:hover {
+      color: var(--accent-hover);
+    }
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 1rem; }
+      .page-header h1 { font-size: 2rem; }
+      main { padding: 8rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">📚 <span>Interview Prep</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="01-react-native-basics.html">React Native</a>
+        <a href="02-typescript-essentials.html">TypeScript</a>
+        <a href="03-your-project-explained.html" class="active">Your Project</a>
+        <a href="04-live-coding-tips.html">Live Coding</a>
+        <a href="05-common-interview-questions.html">Questions</a>
+        <a href="06-project-maintenance.html">Maintenance</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>🎯 Your Project Explained: Do Meows</h1>
+      <p>Everything you built and why - be ready to explain this in your interview!</p>
+    </div>
+
+    <h2>What You Built</h2>
+    <p><strong>Do Meows</strong> - A cat-themed task manager app built with React Native and Expo.</p>
+
+    <h3>The Requirements (From Chapter One)</h3>
+    <p>You were asked to build a Task Manager with:</p>
+    <ul class="checklist">
+      <li><strong>Add Task</strong> — User types and adds to list</li>
+      <li><strong>Mark Complete</strong> — Toggle tasks as done (with visual change)</li>
+      <li><strong>Delete Task</strong> — Remove tasks from list</li>
+      <li><strong>Task List</strong> — Show all tasks</li>
+      <li><strong>Feedback</strong> — Visual feedback when actions happen</li>
+    </ul>
+
+    <p><strong>Rules you followed:</strong></p>
+    <ul>
+      <li>Local state only (<code>useState</code>) - no Redux or database</li>
+      <li>Default React Native components (no extra UI libraries)</li>
+    </ul>
+
+    <h2>Project Structure</h2>
+    <pre><code>expo-react-native-checklist/
+├── app/                          # Screens (Expo Router)
+│   ├── _layout.tsx               # Root layout (theme, navigation)
+│   ├── (tabs)/                   # Tab navigation group
+│   │   ├── _layout.tsx           # Tab bar setup
+│   │   └── index.tsx             # Main screen (your task list!)
+│   └── modal.tsx                 # Modal screen (not used)
+├── components/                   # Reusable components
+│   ├── themed-text.tsx           # Text with theme colors
+│   ├── themed-view.tsx           # View with theme colors
+│   └── ui/                       # UI components
+├── constants/
+│   └── theme.ts                  # Color definitions
+├── hooks/                        # Custom React hooks
+│   ├── use-color-scheme.ts       # Detect light/dark mode
+│   └── use-theme-color.ts        # Get theme colors
+├── assets/
+│   └── images/cats/              # Cat GIF feedback images
+└── package.json                  # Dependencies</code></pre>
+
+    <h2>The Main Screen: <code>app/(tabs)/index.tsx</code></h2>
+    <p>This is where all the magic happens! Let's break it down:</p>
+
+    <h3>1. Imports and Types</h3>
+    <pre><code>import { useRef, useState } from 'react';
+import { nanoid } from 'nanoid/non-secure';
+import { Image } from 'expo-image';
+import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+
+// Type for a single task
+export type TaskType = {
+  id: string;       // Unique identifier
+  text: string;     // Task description
+  completed: boolean; // Is it done?
+};
+
+// Type for feedback animations
+type FeedbackType = 'completed' | 'deleted' | 'added' | 'uncompleted';</code></pre>
+
+    <div class="tip-box">
+      <p><strong>Why these choices?</strong><br>
+      • <code>nanoid</code> - Creates unique IDs for each task (needed for React's key prop)<br>
+      • <code>expo-image</code> - Better than React Native's Image for GIFs<br>
+      • Union type for <code>FeedbackType</code> - Only allows these 4 specific values</p>
+    </div>
+
+    <h3>2. State Management</h3>
+    <pre><code>const [tasks, setTasks] = useState&lt;TaskType[]&gt;([]);           // All tasks
+const [inputText, setInputText] = useState('');               // Input field value
+const [feedbackType, setFeedbackType] = useState&lt;FeedbackType | null&gt;(null);  // Current feedback
+const [feedbackImageError, setFeedbackImageError] = useState(false);  // If GIF fails to load
+const feedbackTimeoutRef = useRef&lt;ReturnType&lt;typeof setTimeout&gt; | null&gt;(null);  // Timer reference</code></pre>
+
+    <div class="tip-box">
+      <p><strong>Why <code>useRef</code> for timeout?</strong><br>
+      • We need to clear the timeout if user does another action quickly<br>
+      • <code>useRef</code> doesn't cause re-renders when changed<br>
+      • Persists between renders</p>
+    </div>
+
+    <h3>3. The Feedback System</h3>
+    <pre><code>const FEEDBACK_DURATION_MS = 3500;  // Show for 3.5 seconds
+
+const CAT_IMAGES: Record&lt;FeedbackType, number&gt; = {
+  completed: require('@/assets/images/cats/cat-yay.gif'),
+  deleted: require('@/assets/images/cats/cat-sus.gif'),
+  added: require('@/assets/images/cats/cat-watching.gif'),
+  uncompleted: require('@/assets/images/cats/cat-close.gif'),
+};
+
+const showFeedback = (type: FeedbackType) =&gt; {
+  // Clear any existing timeout
+  if (feedbackTimeoutRef.current !== null) {
+    clearTimeout(feedbackTimeoutRef.current);
+  }
+  
+  // Show the feedback
+  setFeedbackImageError(false);
+  setFeedbackType(type);
+  
+  // Hide after duration
+  feedbackTimeoutRef.current = setTimeout(() =&gt; {
+    setFeedbackType(null);
+    setFeedbackImageError(false);
+  }, FEEDBACK_DURATION_MS);
+};</code></pre>
+
+    <p><strong>What this does:</strong></p>
+    <ol>
+      <li>When user does an action, show a cat GIF</li>
+      <li>After 3.5 seconds, hide it</li>
+      <li>If user does another action before timeout, reset the timer</li>
+    </ol>
+
+    <h3>4. Core Functions</h3>
+
+    <h4>Adding a Task</h4>
+    <pre><code>const handleAddTask = () =&gt; {
+  if (!inputText.trim()) return;  // Don't add empty tasks
+  
+  setTasks((prev) =&gt; [
+    ...prev,
+    { id: nanoid(), text: inputText.trim(), completed: false },
+  ]);
+  
+  setInputText('');  // Clear input
+  showFeedback('added');
+};</code></pre>
+    <p><strong>Key points:</strong> <code>trim()</code> removes whitespace, <code>nanoid()</code> creates unique ID, spread operator <code>...prev</code> keeps existing tasks.</p>
+
+    <h4>Toggling Complete</h4>
+    <pre><code>const handleToggleComplete = (id: string) =&gt; {
+  setTasks((prev) =&gt; {
+    const next = prev.map((t) =&gt;
+      t.id === id ? { ...t, completed: !t.completed } : t
+    );
+    
+    // Show appropriate feedback
+    const task = next.find((t) =&gt; t.id === id);
+    if (task?.completed) showFeedback('completed');
+    else showFeedback('uncompleted');
+    
+    return next;
+  });
+};</code></pre>
+    <p><strong>Key points:</strong> <code>map()</code> creates new array with one task changed, <code>!t.completed</code> flips the boolean.</p>
+
+    <h4>Deleting a Task</h4>
+    <pre><code>const handleDelete = (id: string) =&gt; {
+  setTasks((prev) =&gt; prev.filter((t) =&gt; t.id !== id));
+  showFeedback('deleted');
+};</code></pre>
+    <p><strong>Key points:</strong> <code>filter()</code> keeps all tasks EXCEPT the one with matching id. Simple and clean!</p>
+
+    <h2>Theme System</h2>
+
+    <h3><code>constants/theme.ts</code></h3>
+    <pre><code>export const Colors = {
+  light: {
+    text: '#1a2634',
+    background: '#e8f2fa',
+    card: '#f5f9fd',
+    border: '#c5d9ed',
+    tint: '#5b9bd5',      // Main accent color (soft blue)
+    delete: '#b85c58',    // Red for delete
+  },
+  dark: {
+    text: '#e8eef4',
+    background: '#1a2332',
+    card: '#243447',
+    border: '#3a4d66',
+    tint: '#7eb8f0',
+    delete: '#e09898',
+  },
+};</code></pre>
+
+    <div class="success-box">
+      <p><strong>Design choice:</strong> Soft blue theme instead of default colors. Shows attention to design!</p>
+    </div>
+
+    <h2>What Makes This Project Good</h2>
+    <ol>
+      <li><strong>Clean Code Organization</strong> - Types defined at top, constants separated, functions are small and focused</li>
+      <li><strong>Good UX Decisions</strong> - <code>keyboardShouldPersistTaps</code> for better input handling, visual feedback for every action, fallback text if GIF fails, minimum touch targets for accessibility</li>
+      <li><strong>TypeScript Usage</strong> - All state is typed, props are typed, union types prevent invalid values</li>
+      <li><strong>Theme Support</strong> - Works in light and dark mode, colors are centralized, easy to change theme</li>
+      <li><strong>Performance Considerations</strong> - Using <code>useRef</code> for timeout (no unnecessary re-renders), clearing timeouts to prevent memory leaks, using <code>expo-image</code> for better GIF performance</li>
+    </ol>
+
+    <h2>Things You Could Improve (Good to mention in interview!)</h2>
+    <div class="tip-box">
+      <p><strong>1. Persistence</strong><br>
+      "Currently tasks disappear when you close the app. I could add AsyncStorage to save tasks locally."</p>
+    </div>
+    <div class="tip-box">
+      <p><strong>2. Better List Performance</strong><br>
+      "For many tasks, I'd use FlatList instead of ScrollView with map() for better performance."</p>
+    </div>
+    <div class="tip-box">
+      <p><strong>3. Animations</strong><br>
+      "I could add smooth animations when tasks are added/removed using react-native-reanimated."</p>
+    </div>
+    <div class="tip-box">
+      <p><strong>4. Edit Task Feature</strong><br>
+      "Users can't edit tasks after creating them. I'd add an edit mode."</p>
+    </div>
+    <div class="tip-box">
+      <p><strong>5. Testing</strong><br>
+      "I'd add unit tests for the task functions and component tests."</p>
+    </div>
+
+    <h2>How to Explain Your Project (30-second version)</h2>
+    <div class="pitch-box">
+      <h3>Memorize This</h3>
+      <blockquote>
+        "I built a task manager app called 'Do Meows' using React Native and Expo. It has all the core features - add, complete, and delete tasks. I used TypeScript for type safety, created a custom theme system that supports light and dark mode, and added cat GIF animations for user feedback. The state is managed with useState hooks, and I used useRef for the feedback timer to avoid memory leaks. If I had more time, I'd add data persistence with AsyncStorage and use FlatList for better performance with large lists."
+      </blockquote>
+    </div>
+
+    <div class="nav-footer">
+      <a href="02-typescript-essentials.html">← TypeScript Essentials</a>
+      <a href="04-live-coding-tips.html">Next: Live Coding Tips →</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+  </script>
+</body>
+</html>
+

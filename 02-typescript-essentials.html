@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeScript Essentials | Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --bg-card: #1c2128;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --accent-subtle: rgba(88, 166, 255, 0.15);
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+      --border: #30363d;
+      --code-bg: #0d1117;
+      --gradient-start: #58a6ff;
+      --gradient-end: #a371f7;
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f8fa;
+      --bg-tertiary: #eaeef2;
+      --bg-card: #ffffff;
+      --text-primary: #1f2328;
+      --text-secondary: #57606a;
+      --text-muted: #8b949e;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --accent-subtle: rgba(9, 105, 218, 0.1);
+      --border: #d0d7de;
+      --code-bg: #f6f8fa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--accent);
+    }
+    p {
+      margin: 1rem 0;
+      color: var(--text-secondary);
+    }
+    strong {
+      color: var(--text-primary);
+    }
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+    li {
+      margin: 0.5rem 0;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+      color: var(--accent);
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+    .tip-box {
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .tip-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .error-box {
+      background: rgba(248, 81, 73, 0.15);
+      border: 1px solid var(--danger);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .error-box p {
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-footer a:hover {
+      color: var(--accent-hover);
+    }
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 1rem; }
+      .page-header h1 { font-size: 2rem; }
+      main { padding: 8rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">📚 <span>Interview Prep</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="01-react-native-basics.html">React Native</a>
+        <a href="02-typescript-essentials.html" class="active">TypeScript</a>
+        <a href="03-your-project-explained.html">Your Project</a>
+        <a href="04-live-coding-tips.html">Live Coding</a>
+        <a href="05-common-interview-questions.html">Questions</a>
+        <a href="06-project-maintenance.html">Maintenance</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>🔷 TypeScript Essentials</h1>
+      <p>Simple TypeScript guide for React Native developers</p>
+    </div>
+
+    <h2>What is TypeScript?</h2>
+    <p>TypeScript is <strong>JavaScript with types</strong>. It helps you catch bugs before your code runs.</p>
+    <p>Think of it like spell-check for your code!</p>
+    <pre><code>// JavaScript - No error until you run it
+let name = "Mohamed";
+name = 123;  // Oops! This might cause bugs later
+
+// TypeScript - Error immediately!
+let name: string = "Mohamed";
+name = 123;  // ❌ Error: Type 'number' is not assignable to type 'string'</code></pre>
+
+    <h2>Basic Types</h2>
+
+    <h3>The Simple Ones</h3>
+    <pre><code>// String - text
+let name: string = "Mohamed";
+
+// Number - any number (integer or decimal)
+let age: number = 25;
+let price: number = 19.99;
+
+// Boolean - true or false
+let isActive: boolean = true;
+
+// Array - list of items
+let names: string[] = ["Ali", "Sara", "Omar"];
+let numbers: number[] = [1, 2, 3, 4, 5];
+
+// Any - turns off type checking (avoid when possible!)
+let anything: any = "hello";
+anything = 123;  // No error, but defeats the purpose of TypeScript</code></pre>
+
+    <h3>Type Inference (TypeScript is Smart!)</h3>
+    <p>You don't always need to write the type - TypeScript can figure it out:</p>
+    <pre><code>// TypeScript knows these types automatically
+let name = "Mohamed";      // TypeScript knows it's a string
+let age = 25;              // TypeScript knows it's a number
+let isActive = true;       // TypeScript knows it's a boolean
+
+// But sometimes you need to be explicit
+let items: string[] = [];  // Empty array - TypeScript needs help</code></pre>
+
+    <h2>Functions with Types</h2>
+
+    <h3>Basic Function Types</h3>
+    <pre><code>// Function that takes a string and returns a string
+function greet(name: string): string {
+  return "Hello, " + name;
+}
+
+// Function that takes a number and returns nothing (void)
+function logNumber(num: number): void {
+  console.log(num);
+}
+
+// Arrow function with types
+const add = (a: number, b: number): number => {
+  return a + b;
+};</code></pre>
+
+    <h3>Optional Parameters</h3>
+    <pre><code>// The '?' makes a parameter optional
+function greet(name: string, greeting?: string): string {
+  if (greeting) {
+    return greeting + ", " + name;
+  }
+  return "Hello, " + name;
+}
+
+greet("Mohamed");           // "Hello, Mohamed"
+greet("Mohamed", "Hi");     // "Hi, Mohamed"</code></pre>
+
+    <h2>Objects and Interfaces</h2>
+
+    <h3>Defining Object Shape with Interface</h3>
+    <p>An <strong>interface</strong> describes what an object should look like:</p>
+    <pre><code>// Define the shape of a Task
+interface Task {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
+// Now TypeScript knows what a Task should have
+const myTask: Task = {
+  id: "1",
+  text: "Learn TypeScript",
+  completed: false,
+};
+
+// ❌ Error! Missing 'completed' property
+const badTask: Task = {
+  id: "2",
+  text: "This is wrong",
+};</code></pre>
+
+    <h3>Optional Properties in Interface</h3>
+    <pre><code>interface User {
+  name: string;
+  email: string;
+  phone?: string;  // Optional - might not exist
+}
+
+// Both are valid:
+const user1: User = { name: "Ali", email: "ali@test.com" };
+const user2: User = { name: "Sara", email: "sara@test.com", phone: "123456" };</code></pre>
+
+    <h3>Interface for Function Props</h3>
+    <pre><code>// Define what props a component accepts
+interface ButtonProps {
+  title: string;
+  onPress: () => void;  // Function that takes nothing, returns nothing
+  disabled?: boolean;
+}
+
+function MyButton({ title, onPress, disabled }: ButtonProps) {
+  return (
+    &lt;Pressable onPress={onPress} disabled={disabled}&gt;
+      &lt;Text&gt;{title}&lt;/Text&gt;
+    &lt;/Pressable&gt;
+  );
+}</code></pre>
+
+    <h2>Type vs Interface</h2>
+    <p>Both can define object shapes. Use <strong>interface</strong> for objects, <strong>type</strong> for everything else:</p>
+    <pre><code>// Interface - for objects (can be extended)
+interface Task {
+  id: string;
+  text: string;
+}
+
+// Type - for unions, primitives, or complex types
+type TaskStatus = 'pending' | 'completed' | 'deleted';
+type ID = string | number;
+
+// Type for object (also works, but interface is preferred)
+type TaskType = {
+  id: string;
+  text: string;
+};</code></pre>
+
+    <h2>Union Types (This OR That)</h2>
+    <pre><code>// Can be string OR number
+let id: string | number;
+id = "abc";  // ✅ OK
+id = 123;    // ✅ OK
+
+// Can be one of specific values
+type Status = 'loading' | 'success' | 'error';
+let currentStatus: Status = 'loading';  // ✅ OK
+currentStatus = 'done';  // ❌ Error! 'done' is not in the list</code></pre>
+
+    <h3>Using Union Types in Your Project</h3>
+    <pre><code>// From your project - feedback can only be these 4 values
+type FeedbackType = 'completed' | 'deleted' | 'added' | 'uncompleted';
+
+// This prevents typos!
+const feedback: FeedbackType = 'complted';  // ❌ Error! Typo caught!</code></pre>
+
+    <h2>Generics (Reusable Types)</h2>
+    <p>Generics let you create flexible, reusable code:</p>
+    <pre><code>// Without generics - need separate functions
+function getFirstString(arr: string[]): string {
+  return arr[0];
+}
+function getFirstNumber(arr: number[]): number {
+  return arr[0];
+}
+
+// With generics - one function works for any type!
+function getFirst&lt;T&gt;(arr: T[]): T {
+  return arr[0];
+}
+
+getFirst&lt;string&gt;(["a", "b", "c"]);  // Returns "a"
+getFirst&lt;number&gt;([1, 2, 3]);        // Returns 1</code></pre>
+
+    <h3>Common Generic You'll See</h3>
+    <pre><code>// useState with type
+const [tasks, setTasks] = useState&lt;Task[]&gt;([]);
+
+// This tells TypeScript that 'tasks' is an array of Task objects</code></pre>
+
+    <h2>TypeScript in React Native</h2>
+
+    <h3>Typing State</h3>
+    <pre><code>// Simple state
+const [count, setCount] = useState&lt;number&gt;(0);
+const [name, setName] = useState&lt;string&gt;('');
+
+// Array state
+const [tasks, setTasks] = useState&lt;Task[]&gt;([]);
+
+// Nullable state
+const [user, setUser] = useState&lt;User | null&gt;(null);</code></pre>
+
+    <h2>Common Patterns in Your Project</h2>
+
+    <h3>Task Type Definition</h3>
+    <pre><code>// This is from your project!
+export type TaskType = {
+  id: string;
+  text: string;
+  completed: boolean;
+};</code></pre>
+
+    <h3>Record Type (Object with Known Keys)</h3>
+    <pre><code>// Object where keys are FeedbackType and values are numbers (image sources)
+const CAT_IMAGES: Record&lt;FeedbackType, number&gt; = {
+  completed: require('./cat-yay.gif'),
+  deleted: require('./cat-sus.gif'),
+  added: require('./cat-watching.gif'),
+  uncompleted: require('./cat-close.gif'),
+};</code></pre>
+
+    <h2>Common TypeScript Errors and Fixes</h2>
+
+    <h4>Error: "Property does not exist"</h4>
+    <div class="error-box">
+      <p>❌ <code>const user = {}; console.log(user.name);</code></p>
+    </div>
+    <pre><code>// ✅ Fix - Define the type
+interface User {
+  name: string;
+}
+const user: User = { name: 'Mohamed' };
+console.log(user.name);  // Works!</code></pre>
+
+    <h4>Error: "Object is possibly 'null'"</h4>
+    <div class="error-box">
+      <p>❌ <code>const [user, setUser] = useState&lt;User | null&gt;(null); console.log(user.name);</code></p>
+    </div>
+    <pre><code>// ✅ Fix - Check for null first
+if (user) {
+  console.log(user.name);  // Now TypeScript knows user exists
+}
+
+// OR use optional chaining
+console.log(user?.name);  // Returns undefined if user is null</code></pre>
+
+    <h2>TypeScript Tips for Interviews</h2>
+    <div class="tip-box">
+      <p><strong>1. Always Type Your State</strong><br>
+      <code>const [items, setItems] = useState&lt;Item[]&gt;([]);</code></p>
+    </div>
+    <div class="tip-box">
+      <p><strong>2. Use Interfaces for Props</strong><br>
+      Define what props a component accepts clearly.</p>
+    </div>
+    <div class="tip-box">
+      <p><strong>3. Use Union Types for Limited Options</strong><br>
+      <code>type ButtonVariant = 'primary' | 'secondary' | 'danger';</code></p>
+    </div>
+    <div class="tip-box">
+      <p><strong>4. Handle Null/Undefined Properly</strong><br>
+      Use optional chaining (<code>user?.name</code>) and nullish coalescing (<code>user?.name ?? 'Guest'</code>)</p>
+    </div>
+
+    <h2>Quick Reference</h2>
+    <pre><code>// Basic types
+let str: string = "hello";
+let num: number = 42;
+let bool: boolean = true;
+let arr: string[] = ["a", "b"];
+
+// Function
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+// Interface
+interface User {
+  name: string;
+  age?: number;  // optional
+}
+
+// Type alias
+type Status = 'loading' | 'success' | 'error';
+
+// Generic
+function first&lt;T&gt;(arr: T[]): T {
+  return arr[0];
+}
+
+// React state with type
+const [items, setItems] = useState&lt;Item[]&gt;([]);</code></pre>
+
+    <div class="nav-footer">
+      <a href="01-react-native-basics.html">← React Native Basics</a>
+      <a href="03-your-project-explained.html">Next: Your Project Explained →</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+  </script>
+</body>
+</html>
+
