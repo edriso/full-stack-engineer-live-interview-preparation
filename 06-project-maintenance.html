@@ -289,11 +289,48 @@
     .good-luck p {
       margin: 0.5rem 0;
     }
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 50%;
+      width: 3.5rem;
+      height: 3.5rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    .scroll-to-top.visible {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+    .scroll-to-top:hover {
+      background: var(--accent-hover);
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+    .scroll-to-top:active {
+      transform: scale(0.95);
+    }
     @media (max-width: 768px) {
       nav { position: static; }
       .nav-container { flex-direction: column; gap: 1rem; }
       .page-header h1 { font-size: 2rem; }
       main { padding: 2rem 1rem 2rem; }
+      .scroll-to-top {
+        display: flex;
+      }
     }
   </style>
 </head>
@@ -563,6 +600,8 @@ npm install react-native-reanimated</code></pre>
     </div>
   </main>
 
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">↑</button>
+
   <script>
     function toggleTheme() {
       const html = document.documentElement;
@@ -575,6 +614,20 @@ npm install react-native-reanimated</code></pre>
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.querySelector('.theme-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
   </script>
 </body>
 </html>
