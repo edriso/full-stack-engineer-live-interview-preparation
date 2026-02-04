@@ -438,6 +438,56 @@ section h2 {
   margin: 0;
 }
 
+.warning-box h3 {
+  color: var(--warning);
+  margin-bottom: 0.5rem;
+}
+
+.warning-box ul {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.5rem;
+}
+
+/* Success Box */
+.success-box {
+  background: rgba(63, 185, 80, 0.15);
+  border: 1px solid var(--success);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.success-box p {
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Golden Rule Box */
+.golden-rule {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.golden-rule h4 {
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+}
+
+.golden-rule p {
+  margin: 0.5rem 0;
+}
+
+.golden-rule ul, .golden-rule ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
 /* Pitch Box */
 .pitch-box {
   background: linear-gradient(135deg, var(--accent-subtle) 0%, var(--bg-secondary) 100%);

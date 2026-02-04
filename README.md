@@ -8,9 +8,10 @@
 
 **If you have limited time, read in this order:**
 
-1. ⭐ **[03-your-project-explained.md](./03-your-project-explained.md)** - Know YOUR code inside out
-2. ⭐ **[04-live-coding-tips.md](./04-live-coding-tips.md)** - How to succeed in the interview
-3. **[05-common-interview-questions.md](./05-common-interview-questions.md)** - Practice answers
+1. ⭐ **[07-coderbyte-problem-solving.html](./07-coderbyte-problem-solving.html)** - **Coderbyte problem-solving guide** (NEW!)
+2. ⭐ **[03-your-project-explained.md](./03-your-project-explained.md)** - Know YOUR code inside out
+3. ⭐ **[04-live-coding-tips.md](./04-live-coding-tips.md)** - How to succeed in the interview
+4. **[05-common-interview-questions.md](./05-common-interview-questions.md)** - Practice answers
 
 **If you have more time, also read:**
 
@@ -24,6 +25,7 @@
 
 | File | What It Covers | Time to Read |
 |------|---------------|--------------|
+| **[07-coderbyte-problem-solving.html](./07-coderbyte-problem-solving.html)** | **Coderbyte platform guide & problem-solving** | **20 min** |
 | [01-react-native-basics.md](./01-react-native-basics.md) | Components, styling, hooks, Expo Router | 20 min |
 | [02-typescript-essentials.md](./02-typescript-essentials.md) | Types, interfaces, generics, common patterns | 15 min |
 | [03-your-project-explained.md](./03-your-project-explained.md) | Your Do Meows app code breakdown | 15 min |
@@ -35,7 +37,8 @@
 
 ## The Interview: What to Expect
 
-**Format:** 60-minute live coding session
+**Format:** 60-minute problem-solving session on **Coderbyte**
+**Platform:** Coderbyte (web-based coding platform)
 **What they test:** Problem-solving approach, coding style, communication
 
 ### Key Things to Remember

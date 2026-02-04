@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coderbyte Problem Solving | Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">📚 <span>Interview Prep</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="01-react-native-basics.html">React Native</a>
+        <a href="02-typescript-essentials.html">TypeScript</a>
+        <a href="03-your-project-explained.html">Your Project</a>
+        <a href="04-live-coding-tips.html">Live Coding</a>
+        <a href="05-common-interview-questions.html">Questions</a>
+        <a href="06-project-maintenance.html">Maintenance</a>
+        <a href="07-coderbyte-problem-solving.html" class="active">Coderbyte</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>⚡ Coderbyte Problem Solving Guide</h1>
+      <p>Master the problem-solving interview on Coderbyte platform</p>
+    </div>
+
+    <div class="tip-box">
+      <p><strong>💡 The Interview Format:</strong> You'll be solving coding problems on Coderbyte, a platform similar to LeetCode or HackerRank. Focus on problem-solving approach, clear communication, and clean code.</p>
+    </div>
+
+    <h2>Understanding Coderbyte</h2>
+    <p>Coderbyte is an online coding platform where you'll solve algorithmic problems in real-time during your interview. The interviewer can see your screen and code as you type.</p>
+
+    <div class="info-box">
+      <h3>What to Expect</h3>
+      <ul>
+        <li><strong>Platform:</strong> Coderbyte (web-based IDE)</li>
+        <li><strong>Language:</strong> Usually JavaScript/TypeScript (confirm with interviewer)</li>
+        <li><strong>Time:</strong> Typically 1-2 problems in 60 minutes</li>
+        <li><strong>Focus:</strong> Problem-solving approach, not just getting the answer</li>
+        <li><strong>Testing:</strong> You can run your code and see test results</li>
+      </ul>
+    </div>
+
+    <h2>Problem-Solving Framework</h2>
+
+    <div class="golden-rule">
+      <h4>Step 1: Understand the Problem (5-10 min)</h4>
+      <p><strong>Read carefully and ask questions:</strong></p>
+      <ul>
+        <li>What are the inputs? (types, constraints, edge cases)</li>
+        <li>What is the expected output?</li>
+        <li>Are there any special cases? (empty inputs, single element, etc.)</li>
+        <li>What are the constraints? (array size, number range, etc.)</li>
+        <li>Can I use built-in methods or do I need to implement from scratch?</li>
+      </ul>
+      <div class="code-block">
+        <pre><code><span class="comment">Example questions to ask:</span>
+<span class="comment">- "Should I handle empty arrays?"</span>
+<span class="comment">- "Can the input contain negative numbers?"</span>
+<span class="comment">- "What should I return if no solution exists?"</span>
+<span class="comment">- "Is the array sorted or unsorted?"</span>
+<span class="comment">- "Should I optimize for time or space complexity?"</span></code></pre>
+      </div>
+    </div>
+
+    <div class="golden-rule">
+      <h4>Step 2: Work Through Examples (5 min)</h4>
+      <p><strong>Don't code yet! Walk through examples manually:</strong></p>
+      <div class="code-block">
+        <pre><code><span class="comment">Example: Find the maximum number in an array</span>
+
+Input: [3, 7, 2, 9, 1]
+Step 1: Start with 3, max = 3
+Step 2: Compare 7 > 3, max = 7
+Step 3: Compare 2 < 7, max = 7
+Step 4: Compare 9 > 7, max = 9
+Step 5: Compare 1 < 9, max = 9
+Output: 9
+
+<span class="comment">Edge cases:</span>
+Input: [] → What should return? (Ask interviewer)
+Input: [5] → Return 5
+Input: [-1, -5, -3] → Return -1</code></pre>
+      </div>
+    </div>
+
+    <div class="golden-rule">
+      <h4>Step 3: Explain Your Approach (5 min)</h4>
+      <p><strong>Think out loud about your strategy:</strong></p>
+      <div class="code-block">
+        <pre><code><span class="comment">Good explanation:</span>
+"I'm thinking of using a two-pointer approach because we need to 
+compare elements from both ends. I'll start with pointers at the 
+beginning and end, and move them towards the center while checking 
+the condition. This will give us O(n) time complexity and O(1) space."
+
+<span class="comment">Or:</span>
+"I think a hash map would work well here because we need O(1) 
+lookups. I'll iterate through the array once, storing each element 
+and its index, then check if the complement exists."</code></pre>
+      </div>
+    </div>
+
+    <div class="golden-rule">
+      <h4>Step 4: Write Pseudocode (5 min)</h4>
+      <p><strong>Outline your solution before coding:</strong></p>
+      <div class="code-block">
+        <pre><code><span class="comment">Pseudocode example:</span>
+function findMax(arr):
+  1. If array is empty, return null/undefined
+  2. Initialize max = first element
+  3. Loop through remaining elements
+  4. If current element > max, update max
+  5. Return max</code></pre>
+      </div>
+    </div>
+
+    <div class="golden-rule">
+      <h4>Step 5: Code the Solution (20-30 min)</h4>
+      <p><strong>Now write the actual code:</strong></p>
+      <ul>
+        <li>Start with a simple, working solution</li>
+        <li>Use clear variable names</li>
+        <li>Add comments for complex logic</li>
+        <li>Don't worry about optimization yet - get it working first!</li>
+      </ul>
+    </div>
+
+    <div class="golden-rule">
+      <h4>Step 6: Test Your Solution (5-10 min)</h4>
+      <p><strong>Run test cases and walk through your code:</strong></p>
+      <ul>
+        <li>Test with the provided examples</li>
+        <li>Test edge cases (empty, single element, duplicates)</li>
+        <li>Walk through the code line by line for one example</li>
+        <li>Fix any bugs you find</li>
+      </ul>
+    </div>
+
+    <div class="golden-rule">
+      <h4>Step 7: Optimize (if time permits)</h4>
+      <p><strong>Discuss improvements:</strong></p>
+      <ul>
+        <li>Time complexity: Can we do better than O(n²)?</li>
+        <li>Space complexity: Can we reduce memory usage?</li>
+        <li>Code clarity: Can we make it more readable?</li>
+        <li>Edge cases: Did we handle all scenarios?</li>
+      </ul>
+    </div>
+
+    <h2>Common Problem Types</h2>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Problem Type</th>
+            <th>Common Patterns</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Array Manipulation</strong></td>
+            <td>Two pointers, sliding window, prefix sum</td>
+            <td>Find two numbers that sum to target</td>
+          </tr>
+          <tr>
+            <td><strong>String Problems</strong></td>
+            <td>Character frequency, palindromes, anagrams</td>
+            <td>Check if string is a palindrome</td>
+          </tr>
+          <tr>
+            <td><strong>Search & Sort</strong></td>
+            <td>Binary search, merge sort, quick sort</td>
+            <td>Find element in sorted array</td>
+          </tr>
+          <tr>
+            <td><strong>Hash Maps/Sets</strong></td>
+            <td>Frequency counting, lookups</td>
+            <td>Find duplicates, group anagrams</td>
+          </tr>
+          <tr>
+            <td><strong>Recursion</strong></td>
+            <td>Base case, recursive case, memoization</td>
+            <td>Fibonacci, factorial, tree traversal</td>
+          </tr>
+          <tr>
+            <td><strong>Dynamic Programming</strong></td>
+            <td>Memoization, bottom-up approach</td>
+            <td>Climbing stairs, coin change</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>JavaScript/TypeScript Tips for Coderbyte</h2>
+
+    <div class="tip-box">
+      <h3>Useful Array Methods</h3>
+      <div class="code-block">
+        <pre><code><span class="comment">// Common array operations</span>
+arr.map(x => x * 2)        <span class="comment">// Transform</span>
+arr.filter(x => x > 0)     <span class="comment">// Filter</span>
+arr.reduce((acc, x) => acc + x, 0)  <span class="comment">// Accumulate</span>
+arr.find(x => x > 5)       <span class="comment">// Find first match</span>
+arr.includes(5)            <span class="comment">// Check existence</span>
+arr.sort((a, b) => a - b)  <span class="comment">// Sort numbers</span>
+arr.slice(start, end)      <span class="comment">// Get subarray</span>
+arr.indexOf(value)         <span class="comment">// Find index</span></code></pre>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <h3>Useful String Methods</h3>
+      <div class="code-block">
+        <pre><code><span class="comment">// Common string operations</span>
+str.split('')              <span class="comment">// String to array</span>
+str.split('').join('')      <span class="comment">// Array to string</span>
+str.toLowerCase()           <span class="comment">// Case conversion</span>
+str.replace(/old/g, 'new') <span class="comment">// Replace</span>
+str.includes('substring')   <span class="comment">// Check substring</span>
+str.charAt(index)           <span class="comment">// Get character</span>
+str.substring(start, end)   <span class="comment">// Get substring</span></code></pre>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <h3>Hash Maps (Objects/Maps)</h3>
+      <div class="code-block">
+        <pre><code><span class="comment">// Using objects as hash maps</span>
+const map = {};
+map[key] = value;           <span class="comment">// Set</span>
+const val = map[key];       <span class="comment">// Get</span>
+if (key in map) { }         <span class="comment">// Check existence</span>
+delete map[key];            <span class="comment">// Delete</span>
+
+<span class="comment">// Using Map (better for some cases)</span>
+const map = new Map();
+map.set(key, value);
+map.get(key);
+map.has(key);
+map.delete(key);</code></pre>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <h3>Sets for Unique Values</h3>
+      <div class="code-block">
+        <pre><code><span class="comment">// Using Set</span>
+const set = new Set();
+set.add(value);
+set.has(value);
+set.delete(value);
+set.size;                   <span class="comment">// Length</span>
+
+<span class="comment">// Convert array to set (remove duplicates)</span>
+const unique = [...new Set(arr)];</code></pre>
+      </div>
+    </div>
+
+    <h2>Common Patterns & Templates</h2>
+
+    <h3>Two Pointers Pattern</h3>
+    <div class="code-block">
+      <pre><code><span class="comment">// For sorted arrays or palindromes</span>
+function twoPointers(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+  
+  while (left < right) {
+    <span class="comment">// Do something with arr[left] and arr[right]</span>
+    if (condition) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return result;
+}</code></pre>
+    </div>
+
+    <h3>Sliding Window Pattern</h3>
+    <div class="code-block">
+      <pre><code><span class="comment">// For subarrays/substrings of fixed size</span>
+function slidingWindow(arr, k) {
+  let windowSum = 0;
+  <span class="comment">// Initialize window</span>
+  for (let i = 0; i < k; i++) {
+    windowSum += arr[i];
+  }
+  
+  let maxSum = windowSum;
+  <span class="comment">// Slide the window</span>
+  for (let i = k; i < arr.length; i++) {
+    windowSum = windowSum - arr[i - k] + arr[i];
+    maxSum = Math.max(maxSum, windowSum);
+  }
+  return maxSum;
+}</code></pre>
+    </div>
+
+    <h3>Frequency Counter Pattern</h3>
+    <div class="code-block">
+      <pre><code><span class="comment">// Count occurrences</span>
+function frequencyCounter(arr) {
+  const freq = {};
+  for (const item of arr) {
+    freq[item] = (freq[item] || 0) + 1;
+  }
+  return freq;
+}</code></pre>
+    </div>
+
+    <h2>What Interviewers Look For</h2>
+
+    <div class="info-box">
+      <h3>✅ Good Signs</h3>
+      <ul>
+        <li>Asking clarifying questions before coding</li>
+        <li>Thinking out loud and explaining your approach</li>
+        <li>Starting with a simple solution, then optimizing</li>
+        <li>Testing your code with examples</li>
+        <li>Handling edge cases</li>
+        <li>Writing clean, readable code</li>
+        <li>Being honest about what you don't know</li>
+      </ul>
+    </div>
+
+    <div class="warning-box">
+      <h3>❌ Red Flags</h3>
+      <ul>
+        <li>Jumping into code without understanding the problem</li>
+        <li>Silent coding (not explaining your thought process)</li>
+        <li>Ignoring edge cases</li>
+        <li>Not testing your solution</li>
+        <li>Pretending to know something you don't</li>
+        <li>Giving up too quickly</li>
+      </ul>
+    </div>
+
+    <h2>Practice Tips</h2>
+
+    <div class="checklist">
+      <div class="checklist-group">
+        <h4>Before the Interview</h4>
+        <ul>
+          <li>Practice on Coderbyte, LeetCode, or HackerRank</li>
+          <li>Focus on easy and medium problems</li>
+          <li>Practice explaining your approach out loud</li>
+          <li>Time yourself (aim for 20-30 min per problem)</li>
+          <li>Review common patterns (two pointers, hash maps, etc.)</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <h4>During the Interview</h4>
+        <ul>
+          <li>Read the problem carefully (twice!)</li>
+          <li>Ask questions before coding</li>
+          <li>Think out loud constantly</li>
+          <li>Start simple, optimize later</li>
+          <li>Test with examples</li>
+          <li>Stay calm if you get stuck</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Example Problem Walkthrough</h2>
+
+    <div class="tip-box">
+      <h3>Problem: Find Two Numbers That Sum to Target</h3>
+      <p><strong>Given:</strong> An array of integers and a target sum, find two numbers that add up to the target. Return their indices.</p>
+      
+      <h4>Step 1: Understand</h4>
+      <p>Questions to ask:</p>
+      <ul>
+        <li>Can there be negative numbers? (Yes, probably)</li>
+        <li>Can I use the same number twice? (No)</li>
+        <li>What if no solution exists? (Return empty array or null)</li>
+        <li>Can there be duplicates? (Yes, but can't use same index twice)</li>
+      </ul>
+
+      <h4>Step 2: Examples</h4>
+      <div class="code-block">
+        <pre><code>Input: nums = [2, 7, 11, 15], target = 9
+Output: [0, 1]  <span class="comment">// because nums[0] + nums[1] = 2 + 7 = 9</span>
+
+Input: nums = [3, 2, 4], target = 6
+Output: [1, 2]  <span class="comment">// because nums[1] + nums[2] = 2 + 4 = 6</span>
+
+Input: nums = [3, 3], target = 6
+Output: [0, 1]  <span class="comment">// same value, different indices</span></code></pre>
+      </div>
+
+      <h4>Step 3: Approach</h4>
+      <p>"I'll use a hash map to store each number and its index. As I iterate through the array, I'll check if the complement (target - current number) exists in the map. This gives O(n) time and O(n) space."</p>
+
+      <h4>Step 4: Code</h4>
+      <div class="code-block">
+        <pre><code>function twoSum(nums, target) {
+  const map = {};
+  
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    
+    if (complement in map) {
+      return [map[complement], i];
+    }
+    
+    map[nums[i]] = i;
+  }
+  
+  return []; <span class="comment">// No solution found</span>
+}</code></pre>
+      </div>
+
+      <h4>Step 5: Test</h4>
+      <p>Walk through with nums = [2, 7, 11, 15], target = 9:</p>
+      <ul>
+        <li>i=0: complement = 9-2 = 7, not in map, map = {2: 0}</li>
+        <li>i=1: complement = 9-7 = 2, found in map! Return [0, 1] ✓</li>
+      </ul>
+    </div>
+
+    <div class="nav-footer">
+      <a href="04-live-coding-tips.html">← Live Coding Tips</a>
+      <a href="index.html">Back to Home →</a>
+    </div>
+  </main>
+
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
